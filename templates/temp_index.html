@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auto Redact AI</title>
+  <!-- <link rel="stylesheet" href="./temp_index.css"> -->
+  <link rel="stylesheet" href="{{url_for('static', filename = '../static/css/temp_index.css')}}">
+  <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+  <style>
+    .file-info {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #444;
+      display: none;
+    }
+    .submit-btn {
+      margin-top: 20px;
+      padding: 12px 25px;
+      background-color: #e63946;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      display: none;
+      transition: 0.2s;
+    }
+    .submit-btn:hover {
+      background-color: #d62839;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <div class="logo" onclick="window.location.href='index.html'">Auto Redact AI</div>
+    <div class="nav-links">
+      <a href="remove-text.html">Remove Sensitive Text</a>
+      <a href="remove-faces.html">Remove Faces from Images</a>
+      <a href="full-privacy.html">Full Privacy Mode (Text + Faces)</a>
+    </div>
+    <div class="auth-buttons">
+      <a href="login.html" class="login">Login</a>
+      <a href="signup.html" class="signup">Sign up</a>
+    </div>
+  </div>
+
+  <!-- Main Section -->
+  <div class="container">
+    <h1>Auto Redact AI</h1>
+    <p>Blur sensitive text and images instantly while keeping your document intact.</p>
+
+    <!-- File Upload -->
+    <form id="upload_form" action="/download" method="post" enctype="multipart/form-data">
+        <label for="fileInput" class="upload-btn">Select file</label>
+        <input type="file" name="sfile" id="fileInput" style="display:none;" accept=".png, .pdf, .jpg, .jpeg" required>
+
+        <!-- File Info -->
+        <div id="fileInfo" class="file-info"></div>
+
+        <!-- Submit Button -->
+        <button id="submitBtn" class="submit-btn">Submit</button>
+    </form>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+   © Auto Redact AI 2025 · Works with PDF, JPG, PNG, and More
+  </div>
+
+  <script>
+    const socketio = io();
+    const fileInput = document.getElementById("fileInput");
+    const fileInfo = document.getElementById("fileInfo");
+    const submitBtn = document.getElementById("submitBtn");
+
+
+    fileInput.addEventListener("change", () => {
+      if (fileInput.files.length > 0) {
+        const fileName = fileInput.files[0].name;
+        fileInfo.innerText = `Selected File: ${fileName}`;
+        fileInfo.style.display = "block";
+        submitBtn.style.display = "inline-block";
+      }
+    });
+
+
+    // submitBtn.addEventListener("click", () => {
+    //   alert("File submitted for processing!");
+    //   window.location.href = "sample_out_web.html"; 
+    // });
+
+    document.addEventListener("DOMContentLoaded", ()=> {
+        const form = document.getElementById("upload_form");
+        form.addEventListener("submit", ()=> {    
+        socketio.emit("file_submitted", {"message":"submitted"})
+        });
+    });
+  </script>
+</body>
+</html>

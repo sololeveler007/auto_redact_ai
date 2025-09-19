@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redacted File - Auto Redact AI</title>
+  <!-- <link rel="stylesheet" href="./temp_output_page.css"> -->
+  <link rel="stylesheet" href="{{url_for('static', filename = '../static/css/temp_output_page.css')}}">
+  <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+
+  <script>
+    const socketio = io();
+
+    console.log("{{file_name}}")
+    const current_file_instance = "{{file_name}}"
+
+    async function download_response() {
+      const response = await fetch(`/download?sid=${socketio.id}`);
+      if (!response.ok) {
+        alert("⚠️ Error Processing file");
+        return;
+      }
+
+      const disposition = response.headers.get('Content-Disposition');
+      let file_name = "processed";
+      if (disposition && disposition.includes("filename=")) {
+        file_name = disposition.split("filename=")[1].replace(/"/g, "");
+      }
+
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = file_name;
+      document.body.append(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    socketio.on("input_file_processed", (data, callback) => {
+      
+      if (current_file_instance == data.current_file_instance) {
+        callback(true);
+        console.log("input_file_processed processed");
+        console.log(current_file_instance)
+        const button_element = document.getElementById('download-btn');
+        button_element.style.visibility = "visible";
+        document.getElementById('processing').remove();
+        document.getElementById('status').innerText = "✅ File is ready for download!";
+      }
+        
+
+    });
+
+    socketio.on("files_deleted", (data) => {
+
+      if (current_file_instance == data.deleted_file_instance) {
+
+        console.log("received files_deleted message");
+        const button_element = document.getElementById('download-btn');
+        button_element.style.visibility = "hidden";
+        document.getElementById('status').innerText = "Time out";
+
+      }
+
+    });
+
+  </script>
+</head>
+<body>
+  <div class="main">
+    <h1>{{ file_name }} Uploaded & Scanned</h1>
+    <p id="status">⏳ Processing your file, please wait...</p>
+    <h2 id="processing">Processing...</h2>
+    <button id="download-btn" onclick="download_response()" style="visibility:hidden;">⬇️ Download Redacted File</button>
+  </div>
+</body>
+</html>

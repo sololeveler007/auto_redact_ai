@@ -1,0 +1,153 @@
+body {
+  margin: 0;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  background: linear-gradient(135deg, #0d1b2a, #1b263b, #0a192f);
+  background-size: 300% 300%;
+  animation: gradientBG 14s ease infinite;
+  color: #e0e6ed;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 50px;
+  background: rgba(20, 30, 48, 0.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-radius: 0 0 12px 12px;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+  color: #4da3ff;
+  cursor: pointer;
+  letter-spacing: 1px;
+  text-shadow: 0 0 6px rgba(77,163,255,0.6);
+}
+
+.nav-links {
+  display: flex;
+  gap: 25px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #dbe4ee;
+  font-size: 15px;
+  transition: 0.2s;
+}
+
+.nav-links a:hover {
+  color: #4da3ff;
+  text-shadow: 0 0 8px rgba(77,163,255,0.7);
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.auth-buttons a {
+  text-decoration: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: 0.3s;
+  font-weight: bold;
+}
+
+.login, .signup {
+  background: linear-gradient(90deg, #1e3c72, #2a5298);
+  color: #fff;
+  box-shadow: 0 0 10px rgba(77,163,255,0.4);
+}
+
+.login:hover, .signup:hover {
+  box-shadow: 0 0 18px rgba(77,163,255,0.8);
+  color: #a9d6ff;
+}
+
+/* Main container */
+.container {
+  text-align: center;
+  margin-top: 80px;
+}
+
+.container h1 {
+  font-size: 34px;
+  margin-bottom: 15px;
+  color: #e0e6ed;
+  text-shadow: 0 0 10px rgba(77,163,255,0.4);
+}
+
+.container p {
+  color: #cdd6e4;
+  margin-bottom: 35px;
+  font-size: 16px;
+}
+
+/* Upload button */
+.upload-btn {
+  display: inline-block;
+  background: linear-gradient(90deg, #1e3c72, #2a5298);
+  color: #fff;
+  font-weight: bold;
+  box-shadow: 0 0 15px rgba(77,163,255,0.4);
+  padding: 16px 45px;
+  font-size: 17px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.upload-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(77,163,255,0.7);
+}
+
+/* File info + submit button */
+.file-info {
+  margin-top: 20px;
+  font-size: 15px;
+  color: #cdd6e4;
+}
+
+.submit-btn {
+  margin-top: 20px;
+  padding: 12px 28px;
+  background: linear-gradient(90deg, #1e3c72, #2a5298);
+  color: #fff;
+  font-weight: bold;
+  box-shadow: 0 0 12px rgba(77,163,255,0.4);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: none;
+  transition: 0.3s;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(77,163,255,0.8);
+}
+
+/* Footer */
+.footer {
+  margin-top: 100px;
+  text-align: center;
+  font-size: 13px;
+  color: #8ea9c1;
+}

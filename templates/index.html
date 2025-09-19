@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoRedactAI</title>
+    <link rel="stylesheet" href="{{url_for('static', filename = '../static/css/style.css')}}">
+    <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+    <script>
+        
+        const socketio = io()
+        
+        document.addEventListener("DOMContentLoaded", ()=> {
+            const form = document.getElementById("upload_form");
+            form.addEventListener("submit", ()=> {    
+            socketio.emit("file_submitted", {"message":"submitted"})
+            });
+        });
+
+    </script>
+</head>
+<body>
+    <div class="main">
+        <h1 class="heading">Welcome To AutoRedactAI</h1>
+        <div class="upload">
+            <form id="upload_form" action="/download" method="post" enctype="multipart/form-data">
+                 <label for="sfile">Upload your image file/pdf</label><br>
+                 <input type="file" name="sfile" id="sfile" accept=".png, .pdf, .jpg, .jpeg" required>
+                <button id="db" type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+    
+</body>
+</html>

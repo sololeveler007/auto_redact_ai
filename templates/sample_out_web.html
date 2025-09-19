@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{url_for('static', filename = '../static/css/output_page.css')}}">
+    <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+    <script>
+
+        const socketio = io()
+        async function download_response() {
+            response = await fetch(`/download?sid=${socketio.id}`)
+            if(!response.ok){
+                alert("Error Processing file")
+                return
+            }
+            const disposition = response.headers.get('Content-Disposition')  //get file name from headers
+            file_name = "processed"
+            if(disposition && disposition.includes("filename=")){
+                file_name = disposition.split("filename=")[1].replace(/"/g, "")
+            }
+            const blob = await response.blob()
+            url = URL.createObjectURL(blob)  //create a url
+            const a = document.createElement('a')
+            a.href = url
+            a.download  = file_name
+            document.body.append(a)
+            a.click() 
+            a.remove()
+            URL.revokeObjectURL(url)
+            return
+
+        }
+        
+        socketio.on("input_file_processed", (data, callback)=> {
+            // console.log(`input_file_processed: ${data.message}`); 
+            callback(true);           
+            const button_element = document.getElementById('db')
+            button_element.style.visibility = "visible"
+            document.getElementById('manipulate').remove();
+        })
+
+    </script>
+</head>
+<body>
+    <div class="main">
+        <h1>{{file_name}} was uploaded and Scanned</h1>
+        <p>Redacted File Download Link:</p>
+        <h2 id="manipulate">Processing</h2>
+        <button id="db" onclick="download_response()" style="visibility:hidden;">Download</button>
+    </div>
+    
+</body>
+</html>
