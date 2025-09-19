@@ -11,7 +11,9 @@ app = Flask(__name__) #* flask setup
 app.secret_key = "3452895464"
 socketio.init_app(app, async_mode="eventlet")
 bgScheduler.start() #* start the scheduler
-folder = "./temp_files" 
+
+os.makedirs("./temp_files", exist_ok=True)
+os.makedirs("./temp_files_processed", exist_ok=True)
 
 @app.route('/')
 @app.route('/index')

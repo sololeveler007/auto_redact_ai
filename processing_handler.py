@@ -6,7 +6,6 @@ from PIL import Image
 import os
 from shared import bytes_storage, log_data, event_queue
 from face_detection import redact_faces_using_yolov8
-from exp_dataset_for_yolov8 import use_custom_yolov8_model
 
 def handle_input(file_path, input_time, output_file_path, user_id):
     try:

@@ -16,7 +16,6 @@ def create_db_connection():
 def add_user_interaction_db(user_id):
     mydb = create_db_connection()
     cursor  = mydb.cursor() #* cursor
-    print(log_data[user_id]['input_dt'], log_data[user_id]['output_dt'], log_data[user_id]['file_type'], log_data[user_id]['no_of_files'])
     add_query = 'INSERT INTO users (input_dt, output_dt, file_type, no_of_files) VALUES (%s, %s, %s, %s)' #* sql query
     values = (log_data[user_id]['input_dt'], log_data[user_id]['output_dt'], log_data[user_id]['file_type'], log_data[user_id]['no_of_files']) #* getting values from log_data
     cursor.execute(add_query, values) #* executing the query (adding it to db)
