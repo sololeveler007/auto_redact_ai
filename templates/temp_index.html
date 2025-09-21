@@ -34,11 +34,11 @@
 <body>
 
   <div class="navbar">
-    <div class="logo" onclick="window.location.href='index.html'">Auto Redact AI</div>
+    <a href="{{ url_for("home") }}"><div class="logo">Auto Redact AI</div></a>
     <div class="nav-links">
-      <a href="remove-text.html">Remove Sensitive Text</a>
-      <a href="remove-faces.html">Remove Faces from Images</a>
-      <a href="full-privacy.html">Full Privacy Mode (Text + Faces)</a>
+      <a href="{{ url_for("home") }}">Remove Sensitive Text</a>
+      <a href="{{ url_for("home") }}">Remove Faces from Images</a>
+      <a href="{{ url_for("home") }}">Full Privacy Mode (Text + Faces)</a>
     </div>
     <div class="auth-buttons">
       <a href="#" class="login">Login</a>
