@@ -16,6 +16,6 @@ Open-source and fully customizable
 Steps to Run the App:
 1. Download and Extract the zip file
 2. open the main folder
-3. open the command prompt and run the command "pip install -r requirements/requirements.txt" to install all required packages
+3. open the command prompt and run the command "pip install -r requirements.txt" to install all required packages
 4. After installing the required packages run the command "python server.py" to start the web app
 5. Next, Upload your files(images, pdf) for redaction
